@@ -34,11 +34,8 @@ def two_numbers_func():
         int(a) ** 2 / int(b)
     except ValueError:
         raise Exception("This is not a number")
-    else:
-        try:
-            int(a) ** 2 / int(b)
-        except ZeroDivisionError:
-            raise Exception('Your second argument is zero, this function cant divide by zero')
+    except ZeroDivisionError:
+        raise Exception('Your second argument is zero, this function cant divide by zero')
 
     return int(a) ** 2 / int(b)
 
