@@ -74,12 +74,12 @@ class TVController:
         return self._channels[TVController.GLOBAL_INDEX]
 
     def is_exist(self, current):
-        if type(current) == int:
+        if isinstance(current, int):
             if int(current) > self._channels_len or 0 > int(current):
                 return "NO"
             else:
                 return "YES"
-        elif type(current) == str:
+        elif isinstance(current, str):
             for channel in self._channels:
                 if channel == current:
                     return "YES"
