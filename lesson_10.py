@@ -38,40 +38,30 @@ CHANNELS = ["BBC", "Discovery", "TV1000"]
 
 
 class TVController:
-    GLOBAL_INDEX = 0
-
     def __init__(self, channels):
         self._channels = channels
+        self.channel_index = 0
         self._channels_len = len(channels)
-        self._index = 0
-
-    def _set_index(self, index, sign=''):
-        if sign == '+':
-            TVController.GLOBAL_INDEX += int(index)
-        elif sign == '-':
-            TVController.GLOBAL_INDEX -= int(index)
-        else:
-            TVController.GLOBAL_INDEX = int(index)
 
     def first_channel(self):
         self._set_index(0)
-        return self._channels[TVController.GLOBAL_INDEX]
+        return self._channels[self.channel_index]
 
     def last_channel(self):
         self._set_index(-1)
-        return self._channels[TVController.GLOBAL_INDEX]
+        return self._channels[self.channel_index]
 
     def turn_channel(self, num):
         self._set_index(int(num) - 1)
-        return self._channels[TVController.GLOBAL_INDEX]
+        return self._channels[self.channel_index]
 
     def next_channel(self):
         self._set_index(1, '+')
-        return self._channels[TVController.GLOBAL_INDEX]
+        return self._channels[self.channel_index]
 
     def previous_channel(self):
         self._set_index(1, '-')
-        return self._channels[TVController.GLOBAL_INDEX]
+        return self._channels[self.channel_index]
 
     def is_exist(self, current):
         if isinstance(current, int):
@@ -88,7 +78,15 @@ class TVController:
                     return "NO"
 
     def current_channel(self):
-        return self._channels[TVController.GLOBAL_INDEX]
+        return self._channels[self.channel_index]
+
+    def _set_index(self, index, sign=''):
+        if sign == '+':
+            self.channel_index += int(index)
+        elif sign == '-':
+            self.channel_index -= int(index)
+        else:
+            self.channel_index = int(index)
 
 
 controller = TVController(CHANNELS)
