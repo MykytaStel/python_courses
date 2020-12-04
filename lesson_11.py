@@ -75,7 +75,7 @@ class Product:
         self.name = name
         self.price = price
 
-    def get_predefined(self):
+    def get_predefined_price(self):
         return self.price * 0.3
 
 
