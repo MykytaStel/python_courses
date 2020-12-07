@@ -50,7 +50,7 @@ assert create_slogan("Steve") == "Steve drinks * in his brand new * !"
 def arg_rules(type_: type, max_length: int, contains: list):
     def wrapper(f):
         def string_actions(*args):
-            print()
+
             _args = ' '.join([str(arg) for arg in args])
             func_string = " ".join(f(*args).split())
 
@@ -80,7 +80,6 @@ def create_slogan(name: str) -> str:
 
 
 assert create_slogan('johndoe05@gmail.com') is False
-assert create_slogan(123) is False
-assert create_slogan('Nikita') is False
+assert not create_slogan(123)
+assert not create_slogan('Nikita')
 assert create_slogan('S@SH05') == 'S@SH05 drinks pepsi in his brand new BMW!'
-
