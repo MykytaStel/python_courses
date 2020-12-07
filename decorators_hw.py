@@ -28,7 +28,7 @@ print(square_all(1, 2, 3, 4, 5))
 def stop_words(words: list):
     def wrapper(f):
         def rename_stop_word(*args):
-            func_string = "".join(f(args[0])).split()
+            func_string = "".join(f(*args)).split()
             for word in words:
                 if word in func_string:
                     func_string[func_string.index(word)] = '*'
@@ -50,20 +50,23 @@ assert create_slogan("Steve") == "Steve drinks * in his brand new * !"
 def arg_rules(type_: type, max_length: int, contains: list):
     def wrapper(f):
         def string_actions(*args):
-
+            print()
             _args = ' '.join([str(arg) for arg in args])
             func_string = " ".join(f(*args).split())
 
-            if not isinstance(type_, type(str)):
+            if not isinstance(*args, type_):
+                print(f'You entered not String type of the argument. Your type is: {type(*args)}')
                 return False
 
             elif len(_args) >= max_length:
+                print(f'Length of the entered word - {_args} is more than max-length - {max_length}')
                 return False
 
             for contain_symbol in contains:
                 if contain_symbol in _args:
                     return func_string
                 else:
+                    print(f'Your name - {_args} contains forbidden symbols')
                     return False
 
         return string_actions
@@ -76,8 +79,8 @@ def create_slogan(name: str) -> str:
     return f"{name} drinks pepsi in his brand new BMW!"
 
 
-print(create_slogan('S@SH05'))
-print(create_slogan('johndoe05@gmail.com'))
 assert create_slogan('johndoe05@gmail.com') is False
+assert create_slogan(123) is False
+assert create_slogan('Nikita') is False
 assert create_slogan('S@SH05') == 'S@SH05 drinks pepsi in his brand new BMW!'
 
