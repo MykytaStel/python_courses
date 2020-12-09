@@ -32,6 +32,14 @@ class Boss:
         self.company = company
         self.workers = []
 
+    @property
+    def workers_info_for_boss(self):
+        return self.workers
+
+    @workers_info_for_boss.setter
+    def workers_info_for_boss(self, new_worker):
+        self.workers = new_worker
+
 
 class Worker:
     def __init__(self, id_: int, name: str, company: str, boss: Boss):
@@ -39,10 +47,21 @@ class Worker:
         self.name = name
         self.company = company
         self._boss = boss
+        self.full_worker_info = self.get_worker_info
 
     @property
-    def get_boss_workers(self):
-        return self._boss.workers
+    def get_worker_info(self):
+        return {self.id: {self.name: self.company}}
+
+
+boss1 = Boss(0, 'Petya', 'Soft')
+worker = Worker(1, "Vasya", "Soft", boss1)
+worker2 = Worker(2, "Jojo", "Serve", boss1)
+
+boss1.workers_info_for_boss.append(worker.get_worker_info)
+boss1.workers_info_for_boss.append(worker2.get_worker_info)
+
+print(boss1.workers_info_for_boss)
 
 
 # Task - 3
