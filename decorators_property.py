@@ -32,13 +32,11 @@ class Boss:
         self.company = company
         self.workers = []
 
-    @property
-    def workers_info_for_boss(self):
-        return self.workers
+    def __str__(self):
+        return self.name
 
-    @workers_info_for_boss.setter
-    def workers_info_for_boss(self, new_worker):
-        self.workers = new_worker
+    def add_workers(self, worker: 'Worker'):
+        self.workers.append(worker)
 
 
 class Worker:
@@ -49,20 +47,31 @@ class Worker:
         self._boss = boss
         self.full_worker_info = self.get_worker_info
 
+    def __repr__(self):
+        return self.name
+
+    @property
+    def boss(self):
+        return self._boss
+
+    @boss.setter
+    def boss(self, boss: Boss):
+        if isinstance(boss, Boss):
+            self._boss = boss
+            boss.add_workers(self)
+
     @property
     def get_worker_info(self):
         return {self.id: {self.name: self.company}}
 
 
 boss1 = Boss(0, 'Petya', 'Soft')
-worker = Worker(1, "Vasya", "Soft", boss1)
+worker1 = Worker(1, "Vasya", "Soft", boss1)
 worker2 = Worker(2, "Jojo", "Serve", boss1)
+worker1.boss = boss1
 
-boss1.workers_info_for_boss.append(worker.get_worker_info)
-boss1.workers_info_for_boss.append(worker2.get_worker_info)
-
-print(boss1.workers_info_for_boss)
-
+print(worker1.boss)
+print(boss1.workers)
 
 # Task - 3
 
