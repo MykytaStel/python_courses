@@ -7,14 +7,14 @@ def with_index(iterable, start=0):
 
 
 grocery = ['bread', 'milk', 'butter']
-enumerateGrocery = with_index(grocery, 10)
+enumerate_grocery = with_index(grocery, 10)
 
-print(list(enumerateGrocery))
+print(list(enumerate_grocery))
 
 # Task 2
 
 
-def in_range(start, end, step=1):
+def in_range(start, end=None, step=1):
 
     if not end:
         start, end = 0, start
