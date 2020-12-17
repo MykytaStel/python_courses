@@ -5,7 +5,7 @@ from Person import PersonEncoder
 
 
 class Phonebook:
-    def __init__(self, name: str, auto_create: None):
+    def __init__(self, name: str, auto_create: bool = None):
         self.name = name
 
         file_exists = os.path.exists(self.name)
