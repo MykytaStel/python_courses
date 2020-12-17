@@ -38,6 +38,37 @@ for num in list_num:
     print('num', num)
 
 # Task 3
+# Class Version
 
-something = [0, 1, 2, 3, 4, 5, 6, 7]
 
+class Iterable:
+    def __init__(self, *arg):
+        first, second = arg
+
+        self.current = first - 1
+        self.second = second
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.current += 1
+        if self.current < self.second:
+            return self.current
+        raise StopIteration
+
+
+for i in Iterable(3, 9):
+    print(i)
+# function version
+
+
+def iterable(first, second):
+    current = first
+    while current < second:
+        yield current
+        current += 1
+
+
+for i in iterable(3, 9):
+    print(i)
