@@ -30,39 +30,8 @@ def file_opener(file_name, access_method='r'):
         file = open(file_name, access_method)
         yield file
     except Exception as e:
-        pass
+        print(f'Error - {e}')
     finally:
         print('FINALLY')
         if file:
             file.close()
-
-
-
-# text_file = 'my-file.txt'
-# @pytest.fixture
-# def file_lines():
-#     with file_opener(text_file) as f:
-#         yield f.readlines()
-#     f.close()
-#
-#
-# def test_has_lines(file_lines):
-#     print(file_lines)
-#     assert len(file_lines) >= 1
-#
-#
-# def test_is_result_str(self):
-#     assert isinstance(self.result, str)
-
-simple_dict = {
-        "name": "Petro",
-        "last_name": "Petro",
-        "age": '32'
-    }
-
-
-def simple_function(file_obj: dict) -> str:
-    return '2'
-
-
-simple_function(simple_dict)
