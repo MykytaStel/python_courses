@@ -1,4 +1,4 @@
-from typing import List, Set, Optional, Iterable
+from typing import List, Set, Iterable
 # Example 1
 
 
@@ -27,7 +27,7 @@ assert choose_func(nums2, square_nums, remove_negatives) == [1, 3, 5]
 # Example 2
 
 
-def example_2() -> Optional:
+def example_2() -> None:
     print('I am example - 2')
 
 
