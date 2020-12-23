@@ -1,21 +1,22 @@
 # Task 1
-from typing import Optional
+from typing import Union
 
 
-def to_power(x: Optional[int, float], exp: int) -> Optional[int, float]:
+def to_power(x: Union[int, float], exp: int) -> Union[int, float]:
     if exp == 0:
         return 1
-    # >>> to_power(2, 3) == 8
-    # True
-    #
-    # >>> to_power(3.5, 2) == 12.25
-    # True
-    #
-    # >>> to_power(2, -1)
-    # ValueError: This function works only with exp > 0.
-    # """
-    # pass
+    elif exp < 0:
+        raise ValueError('This function works only with exp > 0')
 
+    return x * to_power(x, exp - 1)
+
+
+print(
+    to_power(2, 3),
+    to_power(3.5, 2),
+    to_power(2, -1),
+    sep="\n"
+)
 
 # Task 2
 
@@ -32,49 +33,60 @@ def is_palindrome(looking_str: str, index: int = 0) -> bool:
 
 print(
     is_palindrome('mom'),
-    is_palindrome('sassas'),
+    is_palindrome('radar'),
     is_palindrome('o')
 )
 
 
 # Task 3
 
-def mult(a: int, n: int) -> int:
-    """
-    This function works only with positive integers
+def multiply(a: int, n: int) -> int:
+    if n == 0:
+        return 0
+    elif n < 0:
+        raise ValueError('This function works only with positive integers')
+    return a + multiply(a, n - 1)
 
-    >>> mult(2, 4) == 8
-    True
 
-    >>> mult(2, 0) == 0
-    True
-
-    >>> mult(2, -4)
-    ValueError("This function works only with postive integers")
-    """
-
+print(
+    multiply(2, 4),
+    multiply(2, 0),
+    multiply(5, 55),
+    multiply(2, -4),
+    sep="\n"
+)
 
 # Task 4
 
 
 def reverse(input_str: str) -> str:
-    """
-    Function returns reversed input string
-    >>> reverse("hello") == "olleh"
-    True
-    >>> reverse("o") == "o"
-    True
-    """
+    if len(input_str) == 0:
+        return input_str
+    else:
+        return reverse(input_str[1:]) + input_str[0]
 
+
+print(
+    reverse("hello"),
+    reverse("o")
+)
 
 # Task 5
 
 
 def sum_of_digits(digit_string: str) -> int:
-    """
-    >>> sum_of_digits('26') == 8
-    True
+    if digit_string == "":
+        return 0
 
-    >>> sum_of_digits('test')
-    ValueError("input string must be digit string")
-    """
+    if not digit_string.isdigit():
+        raise ValueError("input string must be digit string")
+
+    return int(digit_string[0]) + sum_of_digits(digit_string[1:])
+
+
+print(
+    sum_of_digits('263'),
+    sum_of_digits('test'),
+    sum_of_digits(''),
+    sep="\n"
+    )
