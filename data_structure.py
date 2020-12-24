@@ -1,7 +1,4 @@
 # Task 1
-from collections import deque
-
-
 class Stack:
     def __init__(self, new_list: list = None):
         if not new_list:
@@ -73,13 +70,9 @@ class Queue:
         if not new_items:
             new_items = []
         self.items = new_items
-        self.dq = deque(new_items)
 
     def is_empty(self):
         return len(self.items) == 0
-
-    def enqueue(self, pos, item):
-        self.dq.insert(pos, item)
 
     def get_from_stack(self, e):
         if e in self.items:
@@ -87,9 +80,6 @@ class Queue:
             return e
         else:
             raise ValueError(f'There is no such value in a stack')
-
-    def dequeue_append(self, new_items):
-        return self.dq.append(new_items)
 
 
 stack_for_3_task = Stack(['e', '@', 2, 4])
