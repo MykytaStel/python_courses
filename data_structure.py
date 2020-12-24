@@ -1,4 +1,6 @@
 # Task 1
+from collections import deque
+
 
 class Stack:
     def __init__(self, new_list: list = None):
@@ -7,7 +9,7 @@ class Stack:
         self.items = new_list
 
     def is_empty(self):
-        return self.items == []
+        return len(self.items) == 0
 
     def push(self, data):
         self.items.append(data)
@@ -15,24 +17,19 @@ class Stack:
     # For Task 3
     def get_from_stack(self, e):
         if e in self.items:
-            # I don't understand, do we need to return value or pop it from a list ?
-            # self.items.pop(self.items.index(e)) # <- If pop it from a list
+            self.items.pop(self.items.index(e))
             return e
         else:
             raise ValueError(f'There is no such value in a stack')
 
     def pop(self):
-        items = []
-        while not self.is_empty():
-            items.append(self.items.pop())
-        for item in items:
-            self.push(item)
-        return items
+        return self.items.pop()
 
 
 new_stack = Stack([1, 2, 3, 4, 5])
 
-print(new_stack.pop())
+while not new_stack.is_empty():
+    print(new_stack.pop())
 
 # Task 2
 
@@ -61,7 +58,7 @@ def brackets_balanced(seq):
                 if char != "]":
                     return False
 
-    return 'Balanced'
+    return True
 
 
 print(brackets_balanced('()'))
@@ -69,28 +66,30 @@ print(brackets_balanced('({)'))
 
 
 # Task 3
+
+
 class Queue:
     def __init__(self, new_items: list = None):
         if not new_items:
             new_items = []
         self.items = new_items
+        self.dq = deque(new_items)
 
     def is_empty(self):
-        return self.items == []
+        return len(self.items) == 0
 
-    def enqueue(self, item):
-        self.items.insert(0, item)
+    def enqueue(self, pos, item):
+        self.dq.insert(pos, item)
 
     def get_from_stack(self, e):
         if e in self.items:
-            # I don't understand, do we need to return value or pop it from a list ?
-            # self.items.pop(self.items.index(e)) # <- If pop it from a list
+            self.items.pop(self.items.index(e))
             return e
         else:
             raise ValueError(f'There is no such value in a stack')
 
-    def dequeue(self):
-        return self.items.pop()
+    def dequeue_append(self, new_items):
+        return self.dq.append(new_items)
 
 
 stack_for_3_task = Stack(['e', '@', 2, 4])
