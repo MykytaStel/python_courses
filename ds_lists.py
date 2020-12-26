@@ -1,10 +1,25 @@
-from node.base import Node
+class Node:
+    def __init__(self, data):
+        self._data = data
+        self._next = None
+
+    def get_data(self):
+        return self._data
+
+    def get_next(self):
+        return self._next
+
+    def set_data(self, data):
+        self._data = data
+
+    def set_next(self, new_next):
+        self._next = new_next
 
 
 class UnorderedList:
-
     def __init__(self):
         self._head = None
+        self.tail = None
 
     def is_empty(self):
         return self._head is None
@@ -14,8 +29,16 @@ class UnorderedList:
         temp.set_next(self._head)
         self._head = temp
 
-    def append(self):
-        pass
+    def append(self, item):
+        new_node = Node(item)
+        current = self._head
+
+        if current:
+            while not current.get_next():
+                current = current.get_next()
+            current.set_next(new_node)
+        else:
+            self._head = new_node
 
     def index(self):
         pass
@@ -23,10 +46,14 @@ class UnorderedList:
     def pop(self):
         pass
 
-    def insert(self):
-        pass
+    def insert(self, data, index=-1):
+        if index == -1:
+            self.append(data)
+            return
+        current_index = 0
+        current_node = self._head
 
-    def slice(self):
+    def slice(self, start, stop):
         pass
 
     def size(self):
@@ -59,11 +86,12 @@ class UnorderedList:
             else:
                 previous = current
                 current = current.get_next()
+                current = current.get_next()
 
         if previous is None:
             self._head = current.get_next()
         else:
-            previous.set_next(current.get_next())
+            previous.setNext(current.get_next())
 
     def __repr__(self):
         representation = "<UnorderedList: "
@@ -86,19 +114,22 @@ my_list.add(93)
 my_list.add(26)
 my_list.add(54)
 
-print(my_list.size())
+# print(my_list.size())
+# print(my_list)
+# print(my_list.search(93))
+# print(my_list.search(100))
+#
+# my_list.add(100)
+# print(my_list.search(100))
+# print(my_list.size())
+#
+# my_list.remove(54)
+# print(my_list.size())
+# my_list.remove(93)
+# print(my_list.size())
+# my_list.remove(31)
+# print(my_list.size())
+# print(my_list.search(93))
+
+my_list.append(666)
 print(my_list)
-print(my_list.search(93))
-print(my_list.search(100))
-
-my_list.add(100)
-print(my_list.search(100))
-print(my_list.size())
-
-my_list.remove(54)
-print(my_list.size())
-my_list.remove(93)
-print(my_list.size())
-my_list.remove(31)
-print(my_list.size())
-print(my_list.search(93))
