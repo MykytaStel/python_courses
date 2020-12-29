@@ -19,35 +19,33 @@ arr = [2, 3, 4, 10, 40]
 x = 10
 
 result = binary_search(arr, 0, len(arr), x)
-print(result)
+# print(result)
 
 
 # Task 2
 def fibonacci_search(search_array, val):
-    arr_len = len(search_array)
-    fib_1, fib_2 = 0, 1
+    fib_2, fib_1 = 0, 1
 
-    if val <= 1:
-        return val
-
-    while fib_1 + fib_2 < arr_len:
+    while fib_2 + fib_1 < len(arr):
         fib_2, fib_1 = fib_1, fib_2 + fib_1
 
     offset = 0
 
     while fib_1 > 0:
+
         if search_array[offset + fib_2] == val:
             return offset + fib_2
 
-        if search_array[offset + fib_2] < x:
+        if search_array[offset + fib_2] < val:
             offset += fib_2
-            fib_2, fib_1 = fib_1 - fib_2, fib_2
+
+        fib_2, fib_1 = fib_1 - fib_2, fib_2
 
     return -1
 
 
-array = [2, 3, 4, 10, 40]
-x = 10
+array = [2, 3, 4, 10, 42]
+x = 11
 
 print('result of search is ->', fibonacci_search(array, x))
 
@@ -117,23 +115,27 @@ class HashTable:
         pass
 
     def __contains__(self, item):
-        pass
+        for data in self.data:
+            if item == data:
+                return True
+        return False
 
 
 H = HashTable()
-# H[54] = "cat"
-# H[26] = "dog"
-# H[93] = "lion"
-# H[17] = "tiger"
-# H[77] = "bird"
-# H[31] = "cow"
-# H[44] = "goat"
-# H[55] = "pig"
-# H[20] = "chicken"
-# print(H.slots)
-# print(H.data)
-# print(H[20])
-# print(H[17])
-# H[20] = "duck"
-# print(H[20])
-# print(H[99])
+H[54] = "cat"
+H[26] = "dog"
+H[93] = "lion"
+H[17] = "tiger"
+H[77] = "bird"
+H[31] = "cow"
+H[44] = "goat"
+H[55] = "pig"
+H[20] = "chicken"
+print(H.slots)
+print(H.data)
+print(H[20])
+print(H[17])
+H[20] = "duck"
+print(H[20])
+print(H[99])
+print('duck' in H)
