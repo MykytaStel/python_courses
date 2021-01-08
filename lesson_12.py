@@ -31,6 +31,7 @@ def generic_func(inst):
 print(generic_func(cat))
 print(cat.talk())
 
+
 # Task 2 - Library
 
 
@@ -46,7 +47,7 @@ class Library:
         return f'{self.name}, {self.books}, {self.authors}'
 
     def __repr__(self):
-        return f'Library("{self.name}, {self.books}, {self.authors})"'
+        return f'Library("{self.name}", [], [])'
 
     def new_book(self, name: str, year: int, author: 'Author'):
         book = Book(name, year, author)
@@ -73,7 +74,7 @@ class Book:
         return f'{self.name}, {self.year}, {self.author}'
 
     def __repr__(self):
-        return f'Book("{self.name}, {self.year}, {self.author}")\n'
+        return f'Book({self.name}, {self.year}, {self.author})'
 
 
 class Author:
@@ -86,36 +87,38 @@ class Author:
         return f'{self.name}, {self.country}, {self.birthday}'
 
     def __repr__(self):
-        return f'Author("{self.name}, {self.country}, {self.birthday}"'
+        return f'Author({self.name}, {self.country}, {self.birthday})'
 
     def __eq__(self, other):
         if isinstance(other, Author):
             return Exception('Nit')
-        return self.name == other.name and \
-            self.country == other.country and \
-            self.birthday == other.birthday
+        return self.name == other.name and self.country == other.country and self.birthday == other.birthday
 
 
+lib = Library()
 author_1 = Author("H.P. Lovecraft", "USA", "20.08.1890")
 author_2 = Author("Frank Herbert", "USA", "08.10.1920")
-lib = Library()
 lib.new_book("The Call of Cthulhu", 1928, author_1)
 lib.new_book("The Dunwich Horror", 1929, author_1)
 lib.new_book("The Cats of Ulthar", 1920, author_1)
 lib.new_book("Dune", 1965, author_2)
 lib.new_book("Dune Messiah", 1969, author_2)
-print(f'All your books - {lib.books}')
-print(f'Books grouped by author: {lib.group_by_author(author_2)}')
-print(f'All books by year: {lib.group_by_year(1928)}')
-print(f'Your entire Library: {lib}')
-print(f'There are {Library.BOOK_SHELF} book(s) in your book shelf')
+
+print(f'All your books - {lib.books}',
+      f'Books grouped by author: {lib.group_by_author(author_2)}',
+      f"All books by year: {lib.group_by_year(1928)}",
+      f'Your entire Library: {lib}'
+      f'There are {Library.BOOK_SHELF} book(s) in your book shelf',
+      sep="\n"
+      )
+
 
 # Task 3 - Fraction
 
 
 class Fraction:
     def __init__(self, fraction):
-        if isinstance(fraction, str):
+        if not isinstance(fraction, float):
             raise Exception("Not a number")
         self.fraction = fraction
 
@@ -126,7 +129,7 @@ class Fraction:
         return f'Fraction({self.fraction})'
 
     def __add__(self, other):
-        if isinstance(other, str):
+        if isinstance(other, Fraction):
             raise Exception("fraction value is required")
         return self.fraction + other.fraction
 
@@ -137,28 +140,26 @@ class Fraction:
             return self.__add__(other)
 
     def __sub__(self, other):
-        if not isinstance(other, str):
+        if isinstance(other, Fraction):
             return self.fraction - other.fraction
         else:
             raise ValueError("float value is required")
 
     def __truediv__(self, other):
-        if not isinstance(other, str):
+        if isinstance(other, Fraction):
             return self.fraction / other.fraction
         else:
             raise ValueError("float value is required")
 
     def __mul__(self, other):
-        if not isinstance(other, str):
+        if isinstance(other, Fraction):
             return self.fraction * other.fraction
         else:
             raise ValueError("float value is required")
 
 
-x = Fraction(3/2)
-y = Fraction(1/4)
+x = Fraction(0.5)
+y = Fraction(0.25)
 print(x * y)
 print(x - y)
 print(x / y)
-
-# / TODO UNDERSTAND HOW TO IMPLEMENT THIS: assert x + y == Fraction(3/4)
