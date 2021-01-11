@@ -41,7 +41,7 @@ def fibonacci_search(search_array, val):
 
         fib_2, fib_1 = fib_1 - fib_2, fib_2
 
-    return -1
+    return False
 
 
 array = [2, 3, 4, 10, 42]
