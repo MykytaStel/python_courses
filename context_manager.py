@@ -1,6 +1,5 @@
 # Task 1
 from contextlib import contextmanager
-import pytest
 
 
 class LikeOpen:
