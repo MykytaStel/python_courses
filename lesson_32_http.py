@@ -50,4 +50,3 @@ def handle_payload(response: Optional[Response]) -> None:
 if __name__ == '__main__':
     result = get_response(URL)
     handle_payload(result)
-
