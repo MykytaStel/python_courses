@@ -47,5 +47,7 @@ def handle_payload(response: Optional[Response]) -> None:
     save_to_file(payload, 'comments.json')
 
 
-result = get_response(URL)
-handle_payload(result)
+if __name__ == '__main__':
+    result = get_response(URL)
+    handle_payload(result)
+
