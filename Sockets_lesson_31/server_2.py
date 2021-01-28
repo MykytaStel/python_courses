@@ -1,23 +1,34 @@
 import socket
-from ceasar import cesar
+from ceasar import caesar
+# Create a TCP/IP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-HOST = '127.0.0.1'
-PORT = 65432
+# Bind the socket to the port
+server_address = ('localhost', 65432)
+print('starting up on {} port {}'.format(*server_address))
+sock.bind(server_address)
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    print("Socket successfully created")
-    s.bind((HOST, PORT))
-    s.listen()
-    conn, addr = s.accept()
+# Listen for incoming connections
+sock.listen(1)
 
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            print('data', data)
-            if not data:
-                break
+while True:
+    # Wait for a connection
+    print('waiting for a connection')
+    connection, client_address = sock.accept()
+    try:
+        print('connection from', client_address)
 
-            new_data = cesar(data)
-            print('hello', new_data)
-            conn.sendall(bytes(new_data, encoding='utf-8'))
+        # Receive the data in small chunks and retransmit it
+        data = connection.recv(1024)
+        print('received {!r}'.format(data))
+        if data:
+            print('sending data back to the client')
+            shift = caesar(data.decode(), 1)
+            connection.send(shift.encode())
+        else:
+            print('no data from', client_address)
+            break
+
+    finally:
+        # Clean up the connection
+        connection.close()

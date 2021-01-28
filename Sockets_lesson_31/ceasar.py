@@ -1,12 +1,11 @@
-def cesar(string):
-    alpha = ' abcdefghijklmnopqrstuvwxyz'
-    res = []
-    print(string)
-    for c in string.decode('utf-8'):
-        print(c)
-        if c == alpha[-1]:
-            c = alpha[0]
-        r = alpha[alpha.index(c) + 1]
-        res.append(r)
-    key = ''.join(res)
-    return key
+def caesar(text, s):
+    result = ""
+    for i in range(len(text)):
+        char = text[i]
+        print(char)
+        if char.isupper():
+            result += chr((ord(char) + s - 65) % 26 + 65)
+        else:
+            result += chr((ord(char) + s - 97) % 26 + 97)
+
+    return result

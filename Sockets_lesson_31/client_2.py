@@ -5,8 +5,8 @@ PORT = 65432        # The port used by the server
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.connect((HOST, PORT))
-    s.sendall(b'Hello, world')
+    s.send(b'Helloworld')
     data = s.recv(1024)
-
-print('Received', {data.decode('utf-8')})
+    print(data)
+print('Received', {data.decode()})
 
