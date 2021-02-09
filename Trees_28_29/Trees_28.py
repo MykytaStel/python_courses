@@ -22,6 +22,7 @@ class Stack(Generic[T]):
         return repr(self._container)
 
 
+# TASK 1
 def build_parse_tree(data) -> BinaryTree:
     tmp_list = []
     num = ''
@@ -48,7 +49,7 @@ def build_parse_tree(data) -> BinaryTree:
             current_tree.insert_left('')
             new_stack.push(current_tree)
             current_tree = current_tree.get_left_child()
-        elif token in ['+', '-', '*', '/', 'and', 'or']:
+        elif token in ['+', '-', '*', '/']:
             current_tree.set_root_val(token)
             current_tree.insert_right('')
             new_stack.push(current_tree)
@@ -58,18 +59,24 @@ def build_parse_tree(data) -> BinaryTree:
         else:
             try:
                 n = float(token)
+                current_tree.set_root_val(n)
+                parent = new_stack.pop()
+                current_tree = parent
             except ValueError:
                 raise Exception(f'Not a valid integer: {token}')
-
-            current_tree.set_root_val(n)
-            parent = new_stack.pop()
-            current_tree = parent
 
     return new_tree
 
 
 def evaluate(parse_tree):
-    operates = {'+': operator.add, '-': operator.sub, '*': operator.mul, '/': operator.truediv}
+    operates = {
+        '+': operator.add,
+        '-': operator.sub,
+        '*': operator.mul,
+        '/': operator.truediv,
+        'and': operator.and_,
+        'or': operator.or_
+    }
 
     left_c = parse_tree.get_left_child()
     right_c = parse_tree.get_right_child()
@@ -90,11 +97,51 @@ def print_exp(tree: BinaryTree) -> str:
     return s_val
 
 
+# TASK - 2
+def build_bool_tree(data) -> BinaryTree:
+    tmp_list = []
+    num = ''
+
+    new_stack = Stack()
+    new_tree = BinaryTree('')
+    new_stack.push(new_tree)
+    current_tree = new_tree
+
+    for char in data:
+        if char not in ['(', '+', '-', '*', '/', ')']:
+            if num == '':
+                num = char
+            else:
+                num = num + char
+        else:
+            if num != '':
+                tmp_list.append(num)
+            tmp_list.append(char)
+            num = ''
+
+    for token in tmp_list:
+        if token == '(':
+            current_tree.insert_left('')
+            new_stack.push(current_tree)
+            current_tree = current_tree.get_left_child()
+        elif token in ['and', 'or']:
+            current_tree.set_root_val(token)
+            current_tree.insert_right('')
+            new_stack.push(current_tree)
+            current_tree = current_tree.get_right_child()
+        elif token == ')':
+            current_tree = new_stack.pop()
+        else:
+            current_tree.set_root_val('True' == token)
+
+    return new_tree
+
+
 if __name__ == "__main__":
-    # pt: BinaryTree = build_parse_tree("((10+5)*3)")
-    rt: BinaryTree = build_parse_tree("(True or False) and False")
-    # print(evaluate(pt))
+    pt: BinaryTree = build_parse_tree("((10+5)*3)")
+    rt: BinaryTree = build_bool_tree("((True or False) and False)")
     print(evaluate(rt))
+    print(evaluate(pt))
     # pt.pre_order()
     # print()
     # pt.post_order()
